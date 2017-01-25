@@ -100,8 +100,9 @@ class CyaniteFinder(object):
                              params={'query': query.pattern}).json()
         for path in paths:
             if path['leaf']:
-                yield CyaniteLeafNode(path['path'],
-                                      CyaniteReader(path['path']))
+                if path['id'] == path['path']:
+                    yield CyaniteLeafNode(
+                        path['path'], CyaniteReader(path['path']))
             else:
                 yield BranchNode(path['path'])
 
